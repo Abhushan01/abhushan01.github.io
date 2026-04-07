@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{site.title}}</title>
+    <link
+      rel="stylesheet"
+      href="{{ './assets/styles/styles.css' | relative_url }}"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    {% assign links = site.data.navigation[page.menu] %} {% include header.html
+    links=links %} {% include main.html %}
+
+    <section class="posts">
+      <div class="custom-header">Posts</div>
+      <div class="posts-preview">
+        {% for post in site.posts %}
+        <div class="posts-preview-card">
+          <div class="posts-preview-card-cdt">
+            {{ post.date | date: "%b %d, %Y" }}
+          </div>
+          <div class="posts-preview-detail-group">
+            <div class="posts-preview-card-illustration">
+              <img src="{{post.imageUrl.url}}" alt="Illustration" />
+            </div>
+            <div class="posts-preview-card-title">
+              <p>{{ post.title }}</p>
+            </div>
+            <div class="posts-preview-card-excerpt">{{ post.excerpt }}</div>
+          </div>
+
+          <div class="posts-preview-card-btn">
+            <a
+              href="{{ post.url }}
+            "
+            >
+              <button>Read More</button>
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+  </body>
+</html>

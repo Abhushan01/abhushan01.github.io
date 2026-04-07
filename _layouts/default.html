@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{site.title}}</title>
+    <link
+      rel="stylesheet"
+      href="{{ './assets/styles/styles.css' | relative_url }}"
+    />
+  </head>
+  <body>
+    {% assign links = site.data.navigation[page.menu] %} {% include header.html
+    links=links %}
+    <div class="blog-content">
+      <div class="blog-content-img">
+        <img src="{{page.imageUrl.url}}" alt="" />
+      </div>
+      <p class="blog-content-title">{{page.title}}</p>
+      <p class="date">{{ page.date | date: "%b %d, %Y" }}</p>
+      <div class="blog-content-reader">{{content}}</div>
+    </div>
+  </body>
+</html>

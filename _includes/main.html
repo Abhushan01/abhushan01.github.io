@@ -1,0 +1,114 @@
+<main>
+  <div class="equal-parts">
+    <div class="equal-parts-hero orbit-container">
+      <div class="decorator">
+        <div class="decorator-circle"></div>
+        <div class="decorator-line">
+          {% for i in (0..2) %}
+          <div></div>
+          {% endfor %}
+        </div>
+      </div>
+      <svg
+        class="custom-icon plus"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 640 640"
+      >
+        <path
+          d="M352 128C352 110.3 337.7 96 320 96C302.3 96 288 110.3 288 128L288 288L128 288C110.3 288 96 302.3 96 320C96 337.7 110.3 352 128 352L288 352L288 512C288 529.7 302.3 544 320 544C337.7 544 352 529.7 352 512L352 352L512 352C529.7 352 544 337.7 544 320C544 302.3 529.7 288 512 288L352 288L352 128z"
+        />
+      </svg>
+
+      <svg
+        class="custom-icon pointer"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 640 640"
+      >
+        <path
+          d="M173.3 66.5C181.4 62.4 191.2 63.3 198.4 68.8L518.4 308.7C526.7 314.9 530 325.7 526.8 335.5C523.6 345.3 514.4 351.9 504 351.9L351.7 351.9L440.6 529.6C448.5 545.4 442.1 564.6 426.3 572.5C410.5 580.4 391.3 574 383.4 558.2L294.5 380.5L203.2 502.3C197 510.6 186.2 513.9 176.4 510.7C166.6 507.5 160 498.3 160 488L160 88C160 78.9 165.1 70.6 173.3 66.5z"
+        />
+      </svg>
+      <!-- Embed the SVG file -->
+      <object
+        id="titleImage"
+        type="image/svg+xml"
+        data="../assets/images/title.svg"
+      ></object>
+      <div class="decorator-line">
+        {% for i in (0..2) %}
+        <div></div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="equal-parts-about">
+      <div class="custom-header">About Me</div>
+      <div class="equal-parts-about-content-section">{{content}}</div>
+    </div>
+  </div>
+  <div class="misc">
+    <div class="social">
+      {% for link in page.socialLinks %}
+      <div class="social-links">
+        <a href="{{ link.url }}" target="_blank"
+          ><i class="fa-brands fa-{{link.iconClass}}"></i
+        ></a>
+      </div>
+      {% endfor %}
+    </div>
+    <div id="date"></div>
+  </div>
+</main>
+
+<script>
+  const today = new Date();
+  const options = { month: "short", day: "2-digit", year: "numeric" };
+  const dateOnly = today.toLocaleDateString("en-US", options).replace(",", "");
+  const date = document.getElementById("date");
+  date.innerHTML = dateOnly;
+
+  const pointer = document.querySelector(".pointer");
+  const svgObject = document.getElementById("titleImage");
+
+  svgObject.addEventListener("load", () => {
+    const svgDoc = svgObject.contentDocument;
+
+    const adityaRect = svgDoc.getElementById("aditya_bg");
+    const adityaText = svgDoc.getElementById("aditya");
+    const subtitleBorder = svgDoc.getElementById("subtitle-border");
+
+    const objectRect = svgObject.getBoundingClientRect(); // 🔥 important
+
+    setInterval(() => {
+      const pointerBox = pointer.getBoundingClientRect();
+      const rectBox = adityaRect.getBoundingClientRect();
+
+      // 🔥 adjust SVG coords to page coords
+      const adjustedRect = {
+        left: rectBox.left + objectRect.left,
+        right: rectBox.right + objectRect.left,
+        top: rectBox.top + objectRect.top,
+        bottom: rectBox.bottom + objectRect.top,
+      };
+
+      const overlap =
+        pointerBox.right > adjustedRect.left &&
+        pointerBox.left < adjustedRect.right &&
+        pointerBox.bottom > adjustedRect.top &&
+        pointerBox.top < adjustedRect.bottom;
+
+      if (overlap) {
+        adityaRect.setAttribute("fill", "red");
+        adityaText.setAttribute("fill", "yellow");
+
+        subtitleBorder.setAttribute("stroke", "black");
+        subtitleBorder.setAttribute("fill", "#2b6eea");
+      } else {
+        adityaRect.setAttribute("fill", "#7FE5BA");
+        adityaText.setAttribute("fill", "black");
+
+        subtitleBorder.setAttribute("fill", "yellow");
+        subtitleBorder.setAttribute("stroke", "black");
+      }
+    }, 200);
+  });
+</script>

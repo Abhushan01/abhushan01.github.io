@@ -1,0 +1,19 @@
+# _data/navigation.yml
+userid: Abhushan
+index:
+  - title: Experience
+    url: /
+  - title: Projects
+    url: /about
+  - title: Posts
+    url: /blog
+
+default:
+  - title: Home
+    url: /
+  - title: Experience
+    url: /
+  - title: Projects
+    url: /about
+  - title: Posts
+    url: /blog

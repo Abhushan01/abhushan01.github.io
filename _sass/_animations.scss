@@ -1,0 +1,56 @@
+/* Revolving animation */
+.orbit-container {
+  position: relative;
+  display: inline-block;
+  img {
+    display: block;
+    margin: auto;
+  }
+}
+
+.plus {
+  position: absolute;
+  top: 10.9rem;
+  left: -3%;
+  width: 40px;
+  height: 40px;
+  animation: moveCorners 28s linear infinite;
+}
+
+.pointer {
+  position: absolute;
+  top: 22.5rem;
+  width: 2rem;
+  height: 2rem;
+  left: 24rem;
+  animation: movePointer 4s ease-in-out infinite alternate;
+}
+
+@keyframes moveCorners {
+  0% {
+    transform: translate(0px, 0px); /* top-left corner of main-field */
+  }
+  25% {
+    transform: translate(38rem, 0px); /* top-right corner */
+  }
+  50% {
+    transform: translate(38rem, 13.5rem); /* bottom-right corner */
+  }
+  75% {
+    transform: translate(0px, 13.5rem); /* bottom-left corner */
+  }
+  100% {
+    transform: translate(0px, 0px); /* back to top-left */
+  }
+}
+@keyframes movePointer {
+  0% {
+    transform: translate(20px, -10px); /* near aditya_bg */
+  }
+  50% {
+    transform: translate(0px, -50px);
+  }
+  100% {
+    transform: translate(-90px, -50px); /* near subtitle-border */
+  }
+}
